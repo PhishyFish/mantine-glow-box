@@ -1,5 +1,9 @@
-import { Box, BoxProps, MantineStyleProp } from '@mantine/core';
-import { CSSProperties, ReactNode, useEffect } from 'react';
+import {
+  Box,
+  BoxProps,
+  createPolymorphicComponent,
+  MantineStyleProp,
+} from '@mantine/core';
 import {
   motion,
   MotionStyle,
@@ -7,6 +11,7 @@ import {
   useTime,
   useTransform,
 } from 'motion/react';
+import { CSSProperties, forwardRef, ReactNode, useEffect } from 'react';
 
 interface GlowBoxProps extends BoxProps {
   boxRadius?: number;
@@ -14,7 +19,7 @@ interface GlowBoxProps extends BoxProps {
   children?: ReactNode;
 }
 
-function GlowBox({
+export function GlowBox({
   boxRadius = 8,
   borderWidth = 4,
   style,
@@ -79,4 +84,8 @@ function GlowBox({
   );
 }
 
-export default GlowBox;
+export const GlowBoxPoly = createPolymorphicComponent<'div', GlowBoxProps>(
+  forwardRef<HTMLDivElement, GlowBoxProps>(GlowBox)
+);
+
+export default GlowBoxPoly;
